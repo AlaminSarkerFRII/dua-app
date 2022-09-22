@@ -7,7 +7,8 @@ const Home = () => {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [duas, setDuas] = useState([]);
-  const [id,setId] = useState(1)
+  const [startID,setStartID] = useState(1)
+  const [endID,setEndID] = useState(1)
 
   //Category
   useEffect(() => {
@@ -18,19 +19,21 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`/dua-main/dua/${id}`)
+    axios.get(`/dua-main/dua/${startID}/${endID}`)
     .then(res=>setDuas(res.data.result))
-  }, [id]);
+  }, [startID,endID]);
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      <div>
+      <div className="h-screen overflow-auto">
         <Category 
         category={category}
         subCategory={subCategory}
+        setStartID = {setStartID}
+        setEndID={setEndID}
         />
       </div>
-      <div className="col-span-2">
+      <div className="col-span-2 h-screen overflow-auto">
         <MainDua />
       </div>
     </div>
