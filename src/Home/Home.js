@@ -8,7 +8,7 @@ const Home = () => {
   const [subCategory, setSubCategory] = useState([]);
   const [duas, setDuas] = useState([]);
   const [startID,setStartID] = useState(1)
-  const [endID,setEndID] = useState(1)
+  const [endID,setEndID] = useState(7)
 
   //Category
   useEffect(() => {
@@ -19,8 +19,9 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`/dua-main/dua/${startID}/${endID}`)
-    .then(res=>setDuas(res.data.result))
+    axios.get(`/dua-main/dua/${startID}`)
+    .then(res=>setDuas(res.data.result));
+
   }, [startID,endID]);
 
   return (
@@ -31,10 +32,11 @@ const Home = () => {
         subCategory={subCategory}
         setStartID = {setStartID}
         setEndID={setEndID}
+        duas={duas}
         />
       </div>
       <div className="col-span-2 h-screen overflow-auto">
-        <MainDua />
+        <MainDua duas={duas} />
       </div>
     </div>
   );
